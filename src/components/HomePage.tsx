@@ -1,10 +1,18 @@
 import React from 'react'
 import { type User } from '../types/types'
 import { type RootState } from '../store'
-import { useAppSelector } from '../hooks/store'
+
+import { useAppSelector, useAppDispatch } from '../hooks/store'
+import { deleteUserById } from '../store/users/slice'
 
 const HomePage: React.FC = () => {
   const users = useAppSelector((state: RootState) => state.users)
+  const dispatch = useAppDispatch()
+
+  const handleRemoveUser = (id: User['id']): void => {
+    dispatch(deleteUserById(id))
+  }
+
   return (
     <div>
       {users.map((user) => (
